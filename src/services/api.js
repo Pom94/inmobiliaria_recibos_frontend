@@ -21,11 +21,14 @@ export const obtenerClientePorId = (id) => api.get(`/clientes/${id}`);
 export const crearCliente = (datos) => api.post('/clientes/crear', datos);
 export const actualizarCliente = (id, datos) => api.put(`/clientes/${id}/modificar`, datos);
 export const desactivarCliente = (id) => api.put(`/clientes/${id}/desactivar`);
+export const activarCliente = (id) => api.put(`/clientes/${id}/activar`);
 
 export const obtenerPropiedades = () => api.get('/propiedades/listar');
+export const obtenerPropiedadPorId = (id) => api.get(`/propiedades/${id}`);
 export const crearPropiedad = (datos) => api.post('/propiedades/crear', datos);
 export const actualizarPropiedad = (id, datos) => api.put(`/propiedades/${id}/modificar`, datos);
 export const desactivarPropiedad = (id) => api.put(`/propiedades/${id}/desactivar`);
+export const activarPropiedad = (id) => api.put(`/propiedades/${id}/activar`);
 
 export const obtenerRecibos = () => api.get('/recibo/listar');
 export const obtenerRecibo = (id) => api.get(`/recibo/${id}`);

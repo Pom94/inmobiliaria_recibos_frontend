@@ -8,6 +8,7 @@ import Recibos from './pages/Recibos';
 import ExClientes from './pages/ExClientes';
 import ExPropiedades from './pages/ExPropiedades';
 import ClienteDetalle from './pages/ClienteDetalle';
+import PropiedadDetalle from './pages/PropiedadDetalle';
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -66,6 +67,10 @@ const App = () => {
         <Route 
           path="/propiedades" 
           element={token ? <Propiedades /> : <Navigate to="/iniciar-sesion" />} 
+        />
+        <Route 
+          path="/propiedades/detalle/:id" 
+          element={token ? <PropiedadDetalle /> : <Navigate to="/iniciar-sesion" />} 
         />
         <Route 
           path="/recibos" 
