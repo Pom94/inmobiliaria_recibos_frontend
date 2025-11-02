@@ -90,8 +90,8 @@ const Clientes = () => {
           />
         </InputGroup>
 
-        <div className="clientes-table-container">
-          <Table borderless className="mb-0 clientes-table">
+        <div className="clientes-tabla-container">
+          <Table borderless className="mb-0 clientes-tabla">
             <thead>
               <tr>
                 <th>Nombre</th>
@@ -113,7 +113,7 @@ const Clientes = () => {
                       variant="outline-light"
                       size="sm"
                       onClick={() => manejoVerDetalles(cliente.id)}
-                      className="btn-view"
+                      className="btn-ver"
                     >
                       Ver
                     </Button>
@@ -125,46 +125,45 @@ const Clientes = () => {
         </div>
       </div>
 
-      {/* Modal solo para agregar cliente */}
       <Modal show={mostrarModal} onHide={cerrarModal} centered>
         <Modal.Header closeButton className="modal-clientes-header">
           <Modal.Title>Agregar Cliente</Modal.Title>
         </Modal.Header>
         <Modal.Body className="modal-clientes-body">
           <Form onSubmit={manejoEnvio}>
+            <Form.Label>Nombre del Cliente:</Form.Label>
             <Form.Control
               className="mb-2"
               name="nombre"
-              placeholder="Nombre"
               value={datosFormulario.nombre}
               onChange={manejoCambio}
             />
+            <Form.Label>Dirección:</Form.Label>
             <Form.Control
               className="mb-2"
               name="direccion"
-              placeholder="Dirección"
               value={datosFormulario.direccion}
               onChange={manejoCambio}
             />
-            <Form.Control
-              className="mb-2"
-              name="iva"
-              placeholder="IVA"
-              value={datosFormulario.iva}
-              onChange={manejoCambio}
-            />
-            <Form.Control
-              className="mb-2"
-              name="cuit"
-              placeholder="CUIT"
-              value={datosFormulario.cuit}
-              onChange={manejoCambio}
-            />
+            <Form.Label>Localidad:</Form.Label>
             <Form.Control
               className="mb-2"
               name="localidad"
-              placeholder="Localidad"
               value={datosFormulario.localidad}
+              onChange={manejoCambio}
+            />
+            <Form.Label>I.V.A:</Form.Label>
+            <Form.Control
+              className="mb-2"
+              name="iva"
+              value={datosFormulario.iva}
+              onChange={manejoCambio}
+            />
+            <Form.Label>C.U.I.T:</Form.Label>
+            <Form.Control
+              className="mb-2"
+              name="cuit"
+              value={datosFormulario.cuit}
               onChange={manejoCambio}
             />
 

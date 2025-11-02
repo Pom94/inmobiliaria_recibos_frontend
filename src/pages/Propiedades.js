@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Form, Modal, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { obtenerPropiedades, crearPropiedad, actualizarPropiedad, desactivarPropiedad } from '../services/api';
+import './styles/Propiedades.css';
 
 const Propiedades = () => {
   const [propiedades, setPropiedades] = useState([]);
   const [propiedadesFiltradas, setPropiedadesFiltradas] = useState([]);
   const [busqueda, setBusqueda] = useState('');
   const [mostrarModal, setMostrarModal] = useState(false);
-  const [propiedadSeleccionada, setPropiedadSeleccionada] = useState(null);
   const [datosFormulario, setDatosFormulario] = useState({
     numContrato: '',
     inicioContrato: '',
@@ -50,19 +50,9 @@ const Propiedades = () => {
   const manejoEnvio = async (e) => {
     e.preventDefault();
     try {
-      const datos = {
-        ...datosFormulario,
-        inicioContrato: datosFormulario.inicioContrato ? new Date(datosFormulario.inicioContrato).toISOString() : null,
-        finContrato: datosFormulario.finContrato ? new Date(datosFormulario.finContrato).toISOString() : null
-      };
-      if (propiedadSeleccionada) {
-        await actualizarPropiedad(propiedadSeleccionada.id, datos);
-      } else {
-        await crearPropiedad(datos);
-      }
+      await crearPropiedad(datosFormulario);
       cargarPropiedades();
       setMostrarModal(false);
-      setPropiedadSeleccionada(null);
       setDatosFormulario({
         numContrato: '',
         inicioContrato: '',
@@ -77,95 +67,115 @@ const Propiedades = () => {
     }
   };
 
-  const manejoEditar = (propiedad) => {
-    setPropiedadSeleccionada(propiedad);
-    setDatosFormulario({
-      numContrato: propiedad.numContrato,
-      inicioContrato: propiedad.inicioContrato ? new Date(propiedad.inicioContrato).toISOString().split('T')[0] : '',
-      finContrato: propiedad.finContrato ? new Date(propiedad.finContrato).toISOString().split('T')[0] : '',
-      nombrePropietario: propiedad.nombrePropietario,
-      direccionPropiedad: propiedad.direccionPropiedad,
-      localidadPropiedad: propiedad.localidadPropiedad,
-      cuitPropietario: propiedad.cuitPropietario
-    });
-    setMostrarModal(true);
-  };
 
   const manejoVerDetalles = (id) => {
     navigate(`/propiedades/detalle/${id}`);
   };
 
-  return (
-    <div className="container mt-4">
-      <h2>Propiedades</h2>
-      <InputGroup className="mb-3">
-        <Form.Control
-          placeholder="Buscar por dirección o localidad"
-          value={busqueda}
-          onChange={manejoBusqueda}
-        />
-      </InputGroup>
-      <Button onClick={() => setMostrarModal(true)} className="mb-3">Agregar Propiedad</Button>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nº Contrato</th>
-            <th>Dirección</th>
-            <th>Localidad</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {propiedadesFiltradas.map((propiedad) => (
-            <tr key={propiedad.id}>
-              <td>{propiedad.id}</td>
-              <td>{propiedad.numContrato}</td>
-              <td>{propiedad.direccionPropiedad}</td>
-              <td>{propiedad.localidadPropiedad}</td>
-              <td>
-                <Button variant="secondary" onClick={() => manejoVerDetalles(propiedad.id)}>Ver Detalles</Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+  const cerrarModal = () => {
+    setMostrarModal(false);
+    setDatosFormulario({
+        numContrato: '',
+        inicioContrato: '',
+        finContrato: '',
+        nombrePropietario: '',
+        direccionPropiedad: '',
+        localidadPropiedad: '',
+        cuitPropietario: ''
+      });
+  };
 
-      <Modal show={mostrarModal} onHide={() => setMostrarModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>{propiedadSeleccionada ? 'Editar Propiedad' : 'Agregar Propiedad'}</Modal.Title>
+  return (
+    <div className="contenedor-principal">
+      <div className="propiedades-container">
+        <div className="propiedades-header">
+          <h2 className="propiedades-title">Propiedades</h2>
+          <Button
+            variant="primary"
+            onClick={() => setMostrarModal(true)}
+            className="boton-nueva-propiedad"
+          >
+            Nueva Propiedad
+          </Button>
+        </div>
+
+        <InputGroup className="propiedades-buscar">
+          <Form.Control
+            placeholder="Buscar por dirección o localidad"
+            value={busqueda}
+            onChange={manejoBusqueda}
+          />
+        </InputGroup>
+
+        <div className="propiedades-tabla-container">
+          <Table  className='mb-0 propiedades-tabla'>
+            <thead>
+              <tr>
+                <th>Nº Contrato</th>
+                <th>Dirección</th>
+                <th>Localidad</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {propiedadesFiltradas.map((propiedad) => (
+                <tr key={propiedad.id}>
+                  <td>{propiedad.numContrato}</td>
+                  <td>{propiedad.direccionPropiedad}</td>
+                  <td>{propiedad.localidadPropiedad}</td>
+                  <td className='text-center'>
+                    <Button 
+                      variant="outline-light"
+                      size='sm' 
+                      onClick={() => manejoVerDetalles(propiedad.id)}
+                      className='btn-ver'
+                    >
+                      Ver
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      </div>
+      
+
+      <Modal show={mostrarModal} onHide={cerrarModal} centered>
+        <Modal.Header closeButton className='modal-propiedades-header'>
+          <Modal.Title>Agregar Propiedad</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='modal-propiedades-body'>
           <Form onSubmit={manejoEnvio}>
             <Form.Group>
-              <Form.Label>Nº Contrato</Form.Label>
-              <Form.Control name="numContrato" value={datosFormulario.numContrato} onChange={manejoCambio} required />
+              <Form.Label>Número de Contrato:</Form.Label>
+              <Form.Control className="mb-2" name="numContrato" value={datosFormulario.numContrato} onChange={manejoCambio} required />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Inicio Contrato</Form.Label>
-              <Form.Control type="date" name="inicioContrato" value={datosFormulario.inicioContrato} onChange={manejoCambio} required />
+              <Form.Label>Fecha de Inicio de Contrato:</Form.Label>
+              <Form.Control className="mb-2" type="date" name="inicioContrato" value={datosFormulario.inicioContrato} onChange={manejoCambio} required />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Fin Contrato</Form.Label>
-              <Form.Control type="date" name="finContrato" value={datosFormulario.finContrato} onChange={manejoCambio} required />
+              <Form.Label>Fecha de Fin de Contrato:</Form.Label>
+              <Form.Control className="mb-2" type="date" name="finContrato" value={datosFormulario.finContrato} onChange={manejoCambio} required />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Propietario</Form.Label>
-              <Form.Control name="nombrePropietario" value={datosFormulario.nombrePropietario} onChange={manejoCambio} required />
+              <Form.Label>Nombre de Propietario:</Form.Label>
+              <Form.Control className="mb-2" name="nombrePropietario" value={datosFormulario.nombrePropietario} onChange={manejoCambio} required />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Dirección Propiedad</Form.Label>
-              <Form.Control name="direccionPropiedad" value={datosFormulario.direccionPropiedad} onChange={manejoCambio} required />
+              <Form.Label>Dirección de la Propiedad:</Form.Label>
+              <Form.Control className="mb-2" name="direccionPropiedad" value={datosFormulario.direccionPropiedad} onChange={manejoCambio} required />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Localidad</Form.Label>
-              <Form.Control name="localidadPropiedad" value={datosFormulario.localidadPropiedad} onChange={manejoCambio} required />
+              <Form.Label>Localidad de la Propiedad:</Form.Label>
+              <Form.Control className="mb-2" name="localidadPropiedad" value={datosFormulario.localidadPropiedad} onChange={manejoCambio} required />
             </Form.Group>
             <Form.Group>
-              <Form.Label>CUIT Propietario</Form.Label>
-              <Form.Control name="cuitPropietario" value={datosFormulario.cuitPropietario} onChange={manejoCambio} required />
+              <Form.Label>CUIT del Propietario:</Form.Label>
+              <Form.Control className="mb-2" name="cuitPropietario" value={datosFormulario.cuitPropietario} onChange={manejoCambio} required />
             </Form.Group>
-            <Button variant="primary" type="submit">Guardar</Button>
+            <Button variant="primary" type="submit" className='mt-3'>Guardar</Button>
           </Form>
         </Modal.Body>
       </Modal>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, InputGroup, Form } from 'react-bootstrap';
 import { obtenerExPropiedades } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import './styles/ExPropiedades.css';
 
 const ExPropiedades = () => {
   const [exPropiedades, setExPropiedades] = useState([]);
@@ -37,39 +38,56 @@ const ExPropiedades = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Propiedades Inactivas</h2>
-      <InputGroup className="mb-3">
-        <Form.Control
-          placeholder="Buscar por dirección o localidad"
-          value={busqueda}
-          onChange={manejoBusqueda}
-        />
-      </InputGroup>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nº Contrato</th>
-            <th>Dirección</th>
-            <th>Localidad</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {exPropiedadesFiltradas.map((propiedad) => (
-            <tr key={propiedad.id}>
-              <td>{propiedad.id}</td>
-              <td>{propiedad.numContrato}</td>
-              <td>{propiedad.direccionPropiedad}</td>
-              <td>{propiedad.localidadPropiedad}</td>
-              <td>
-                <Button variant="secondary" onClick={() => manejoVerDetalles(propiedad.id)}>Ver Detalles</Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+    <div className="contenedor-principal">
+      <div className="propiedades-container">
+        <div className="propiedades-header">
+          <h2 className="propiedades-title">Propiedades Inactivas</h2>
+        </div>
+
+        <InputGroup className="propiedades-buscar">
+          <Form.Control
+            placeholder="Buscar por dirección o localidad"
+            value={busqueda}
+            onChange={manejoBusqueda}
+          />
+        </InputGroup>
+
+        <div className="propiedades-tabla-container">
+          <Table borderless className="mb-0 propiedades-tabla">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nº Contrato</th>
+                <th>Dirección</th>
+                <th>Localidad</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {exPropiedadesFiltradas.map((propiedad) => (
+                <tr key={propiedad.id}>
+                  <td>{propiedad.id}</td>
+                  <td>{propiedad.numContrato}</td>
+                  <td>{propiedad.direccionPropiedad}</td>
+                  <td>{propiedad.localidadPropiedad}</td>
+                  <td className='text-center'>
+                    <Button 
+                      variant="outline-light"
+                      size='sm' 
+                      onClick={() => manejoVerDetalles(propiedad.id)}
+                      className='btn-ver'
+                    >
+                      Ver
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      </div>
+      
+      
     </div>
   );
 };
