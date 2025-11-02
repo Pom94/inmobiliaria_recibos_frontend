@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Form, InputGroup, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { obtenerExClientes } from '../services/api';
+import './styles/ExClientes.css';
 
 const ExClientes = () => {
   const [exClientes, setExClientes] = useState([]);
@@ -51,8 +52,8 @@ const ExClientes = () => {
           />
         </InputGroup>
 
-        <div className="clientes-table-container">
-          <Table borderless className="mb-0 clientes-table">
+        <div className="clientes-tabla-container">
+          <Table borderless className="mb-0 clientes-tabla">
             <thead>
               <tr>
                 <th>Nombre</th>
@@ -74,7 +75,7 @@ const ExClientes = () => {
                       variant="outline-light"
                       size="sm"
                       onClick={() => manejoVerDetalles(exCliente.id)}
-                      className="btn-view"
+                      className="btn-ver"
                     >
                       Ver
                     </Button>

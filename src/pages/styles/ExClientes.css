@@ -35,7 +35,7 @@
 }
 
 /***contenedor-tabla***/
-.clientes-table-container {
+.clientes-tabla-container {
   background-color: #23263a;
   border-radius: 12px;
   overflow: hidden;
@@ -43,7 +43,7 @@
 }
 
 /***encabezados***/
-.clientes-table th {
+.clientes-tabla th {
   background-color: #303550 !important;
   color: #aab2d6 !important;
   padding: 1rem !important;
@@ -52,7 +52,7 @@
 }
 
 /***celdas***/
-.clientes-table td {
+.clientes-tabla td {
   padding: 1rem !important;
   background-color: #2d3148 !important;
   color: #fff !important;
@@ -60,12 +60,12 @@
   vertical-align: middle;
 }
 
-.clientes-table td:nth-child(2) {
+.clientes-tabla td:nth-child(2) {
   color: #cfd3e3 !important;
 }
 
 /***fila-hover***/
-.clientes-table tr:hover td {
+.clientes-tabla tr:hover td {
   background-color: #383d5e !important;
 }
 
