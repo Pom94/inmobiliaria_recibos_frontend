@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation, Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import IniciarSesion from './components/IniciarSesion';
 import Clientes from './pages/Clientes';
@@ -9,6 +9,8 @@ import ExClientes from './pages/ExClientes';
 import ExPropiedades from './pages/ExPropiedades';
 import ClienteDetalle from './pages/ClienteDetalle';
 import PropiedadDetalle from './pages/PropiedadDetalle';
+import ReciboDetalle from './pages/ReciboDetalle';
+//import './App.css';
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -30,7 +32,18 @@ const App = () => {
   return (
     <Router>
       {token && (
-        <Navbar bg="dark" variant="dark" expand="lg">
+        <div className="sidebar">
+          <h3>Inmobiliaria</h3>
+          <ul>
+            <li><Link to="/clientes">Clientes</Link></li>
+            <li><Link to="/clientes/inactivos">Clientes Inactivos</Link></li>
+            <li><Link to="/propiedades">Propiedades</Link></li>
+            <li><Link to="/propiedades/inactivas">Propiedades Inactivas</Link></li>
+            <li><Link to="/recibos">Recibos</Link></li>
+            <li><Link onClick={cerrarSesion}>Cerrar Sesión</Link></li>
+          </ul>
+        </div>
+        /*<Navbar bg="dark" variant="dark" expand="lg">
           <Container>
             <Navbar.Brand>Inmobiliaria</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -45,7 +58,7 @@ const App = () => {
               </Nav>
             </Navbar.Collapse>
           </Container>
-        </Navbar>
+        </Navbar>*/
       )}
       <Routes>
         <Route 
@@ -75,6 +88,10 @@ const App = () => {
         <Route 
           path="/recibos" 
           element={token ? <Recibos /> : <Navigate to="/iniciar-sesion" />} 
+        />
+        <Route 
+          path="/recibos/detalle/:numeroRecibo" 
+          element={token ? <ReciboDetalle /> : <Navigate to="/iniciar-sesion" />} 
         />
         <Route 
           path="/clientes/inactivos" 

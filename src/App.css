@@ -1,38 +1,128 @@
-.App {
-  text-align: center;
+/**sidebar**/
+.sidebar {
+  width: 220px;
+  height: 100%;
+  background-color: #1f2233;
+  padding: 20px;
+  position: fixed;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sidebar h3 {
+  color: #f1f3ff;
+  margin-bottom: 30px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.sidebar ul {
+  list-style: none;
+  padding: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.sidebar li {
+  margin-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.sidebar a {
+  color: #aab2d6;
+  text-decoration: none;
+  font-weight: 500;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sidebar a:hover {
+  color: #5865f2;
+}
+
+/*********************************************************/
+body {
+  background-color: #1b1e2b;
+  color: #f1f3ff;
+  font-family: 'Inter', sans-serif;
+}
+/*
+.container {
+  background-color: #23263a;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+h2 {
+  color: #f1f3ff;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+
+.table {
+  background-color: #2d3148;
+  color: #cfd3e3;
+  border: none;
+}
+
+.table th {
+  background-color: #303550;
+  color: #aab2d6;
+  border: none;
+}
+
+.table td {
+  background-color: #303550;
+  color: #ffffff;
+  border: none;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #383d5e;
+}
+
+*/
+
+/**botones**/
+.btn-primary {
+  background-color: #415391;
+  border: none;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: #5b65d6;
+}
+
+.btn-secondary {
+  background-color: #3e425b;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #52577a;
+}
+
+/**inputs**/
+
+input.form-control {
+  background-color: #2c2f44;
+  color: #f1f3ff;
+  border: 1px solid #3e4162;
+}
+
+input.form-control:focus {
+  background-color: #a7a8b6;
+  border-color: #5865f2;
+  box-shadow: 0 0 0 0.2rem rgba(88, 101, 242, 0.25);
+}
+
+input::placeholder {
+  color: #aab2d6 !important;
+}
+
+input:focus::placeholder {
+  color: #2c2f44 !important;
+}
+
+/**modal**/
+
+.modal-content {
+  background-color: #23263a;
+  color: #f1f3ff;
+  border-radius: 10px;
+  border: none;
 }
