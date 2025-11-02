@@ -37,7 +37,57 @@ const ExClientes = () => {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="contenedor-principal">
+      <div className="clientes-container">
+        <div className="clientes-header">
+          <h2 className="clientes-title">Clientes Inactivos</h2>
+        </div>
+
+        <InputGroup className="clientes-search">
+          <Form.Control
+            placeholder="Buscar por nombre o CUIT"
+            value={busqueda}
+            onChange={manejoBusqueda}
+          />
+        </InputGroup>
+
+        <div className="clientes-table-container">
+          <Table borderless className="mb-0 clientes-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>CUIT</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {exClientesFiltrados.map((exCliente) => (
+                <tr key={exCliente.id}>
+                  <td onClick={() => manejoVerDetalles(exCliente.id)} style={{ cursor: 'pointer' }}>
+                    {exCliente.nombre}
+                  </td>
+                  <td onClick={() => manejoVerDetalles(exCliente.id)} style={{ cursor: 'pointer' }}>
+                    {exCliente.cuit}
+                  </td>
+                  <td className="text-center">
+                    <Button
+                      variant="outline-light"
+                      size="sm"
+                      onClick={() => manejoVerDetalles(exCliente.id)}
+                      className="btn-view"
+                    >
+                      Ver
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      </div>
+    </div>
+    
+    /*<div className="contenedor-principal">
       <h2>Clientes Inactivos</h2>
       <InputGroup className="mb-3">
         <Form.Control
@@ -68,7 +118,7 @@ const ExClientes = () => {
           ))}
         </tbody>
       </Table>
-    </div>
+    </div>*/
   );
 };
 

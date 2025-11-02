@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Form, Modal, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { obtenerClientes, crearCliente, actualizarCliente, desactivarCliente } from '../services/api';
+import { obtenerClientes, crearCliente } from '../services/api';
+import './styles/Clientes.css';
 
 const Clientes = () => {
   const [clientes, setClientes] = useState([]);
   const [clientesFiltrados, setClientesFiltrados] = useState([]);
   const [busqueda, setBusqueda] = useState('');
   const [mostrarModal, setMostrarModal] = useState(false);
-  const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
-  const [datosFormulario, setDatosFormulario] = useState({ nombre: '', direccion: '', iva: '', cuit: '', localidad: '' });
+  const [datosFormulario, setDatosFormulario] = useState({
+    nombre: '',
+    direccion: '',
+    iva: '',
+    cuit: '',
+    localidad: ''
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,8 +36,9 @@ const Clientes = () => {
   const manejoBusqueda = (e) => {
     const termino = e.target.value.toLowerCase();
     setBusqueda(termino);
-    const filtrados = clientes.filter(cliente => 
+    const filtrados = clientes.filter((cliente) =>
       cliente.nombre.toLowerCase().includes(termino)
+      || cliente.cuit.toLowerCase().includes(termino)
     );
     setClientesFiltrados(filtrados);
   };
@@ -42,38 +50,132 @@ const Clientes = () => {
   const manejoEnvio = async (e) => {
     e.preventDefault();
     try {
-      if (clienteSeleccionado) {
-        await actualizarCliente(clienteSeleccionado.id, datosFormulario);
-      } else {
-        await crearCliente(datosFormulario);
-      }
+      await crearCliente(datosFormulario);
       cargarClientes();
       setMostrarModal(false);
-      setClienteSeleccionado(null);
       setDatosFormulario({ nombre: '', direccion: '', iva: '', cuit: '', localidad: '' });
     } catch (err) {
       console.error('Error al guardar cliente', err);
     }
   };
 
-  const manejoEditar = (cliente) => {
-    setClienteSeleccionado(cliente);
-    setDatosFormulario({
-      nombre: cliente.nombre,
-      direccion: cliente.direccion,
-      iva: cliente.iva,
-      cuit: cliente.cuit,
-      localidad: cliente.localidad
-    });
-    setMostrarModal(true);
-  };
-
   const manejoVerDetalles = (id) => {
     navigate(`/clientes/detalle/${id}`);
   };
 
+  const cerrarModal = () => {
+    setMostrarModal(false);
+    setDatosFormulario({ nombre: '', direccion: '', iva: '', cuit: '', localidad: '' });
+  };
+
   return (
-    <div className="container mt-4">
+    <div className="contenedor-principal">
+      <div className="clientes-container">
+        <div className="clientes-header">
+          <h2 className="clientes-title">Clientes</h2>
+          <Button
+            variant="primary"
+            onClick={() => setMostrarModal(true)}
+            className="boton-nuevo-cliente"
+          >
+            Nuevo Cliente
+          </Button>
+        </div>
+
+        <InputGroup className="clientes-search">
+          <Form.Control
+            placeholder="Buscar por nombre o CUIT"
+            value={busqueda}
+            onChange={manejoBusqueda}
+          />
+        </InputGroup>
+
+        <div className="clientes-table-container">
+          <Table borderless className="mb-0 clientes-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>CUIT</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {clientesFiltrados.map((cliente) => (
+                <tr key={cliente.id}>
+                  <td onClick={() => manejoVerDetalles(cliente.id)} style={{ cursor: 'pointer' }}>
+                    {cliente.nombre}
+                  </td>
+                  <td onClick={() => manejoVerDetalles(cliente.id)} style={{ cursor: 'pointer' }}>
+                    {cliente.cuit}
+                  </td>
+                  <td className="text-center">
+                    <Button
+                      variant="outline-light"
+                      size="sm"
+                      onClick={() => manejoVerDetalles(cliente.id)}
+                      className="btn-view"
+                    >
+                      Ver
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      </div>
+
+      {/* Modal solo para agregar cliente */}
+      <Modal show={mostrarModal} onHide={cerrarModal} centered>
+        <Modal.Header closeButton className="modal-clientes-header">
+          <Modal.Title>Agregar Cliente</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="modal-clientes-body">
+          <Form onSubmit={manejoEnvio}>
+            <Form.Control
+              className="mb-2"
+              name="nombre"
+              placeholder="Nombre"
+              value={datosFormulario.nombre}
+              onChange={manejoCambio}
+            />
+            <Form.Control
+              className="mb-2"
+              name="direccion"
+              placeholder="Dirección"
+              value={datosFormulario.direccion}
+              onChange={manejoCambio}
+            />
+            <Form.Control
+              className="mb-2"
+              name="iva"
+              placeholder="IVA"
+              value={datosFormulario.iva}
+              onChange={manejoCambio}
+            />
+            <Form.Control
+              className="mb-2"
+              name="cuit"
+              placeholder="CUIT"
+              value={datosFormulario.cuit}
+              onChange={manejoCambio}
+            />
+            <Form.Control
+              className="mb-2"
+              name="localidad"
+              placeholder="Localidad"
+              value={datosFormulario.localidad}
+              onChange={manejoCambio}
+            />
+
+            <Button variant="primary" type="submit" className="mt-3">
+              Guardar
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    </div>
+    /*<div className="container mt-4">
       <h2>Clientes</h2>
       <InputGroup className="mb-3">
         <Form.Control
@@ -136,7 +238,7 @@ const Clientes = () => {
           </Form>
         </Modal.Body>
       </Modal>
-    </div>
+    </div>*/
   );
 };
 
