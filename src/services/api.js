@@ -31,7 +31,7 @@ export const desactivarPropiedad = (id) => api.put(`/propiedades/${id}/desactiva
 export const activarPropiedad = (id) => api.put(`/propiedades/${id}/activar`);
 
 export const obtenerRecibos = () => api.get('/recibo/listar');
-export const obtenerRecibo = (id) => api.get(`/recibo/${id}`);
+export const obtenerRecibo = (numeroRecibo) => api.get(`/recibo/${numeroRecibo}`);
 export const crearRecibo = (datos) => api.post('/recibo/crear', datos);
 export const eliminarRecibo = (id) => api.delete(`/recibo/${id}`);
 
