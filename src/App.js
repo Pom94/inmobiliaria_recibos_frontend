@@ -110,7 +110,7 @@ const Dashboard = () => {
   return (
     <Container className="mt-4">
       <h1>Bienvenido al Sistema Inmobiliario</h1>
-      <p>Usa el menú superior para gestionar clientes, propiedades y recibos.</p>
+      <p>Usa el menú para gestionar clientes, propiedades y recibos.</p>
     </Container>
   );
 };
