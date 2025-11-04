@@ -25,6 +25,7 @@
   border-radius: 8px;
   padding: 0.5rem 1.5rem;
   font-weight: 500;
+  background: rgba(0,255,180,0.3) !important;
 }
 
 /***barra-busqueda//*/
@@ -81,14 +82,13 @@
   border-radius: 6px;
   font-size: 0.875rem;
   padding: 0.25rem 0.75rem;
-  border: 1px solid #5865f2;
-  color: #5865f2;
+  border: 1px solid #7adeff !important;
   background-color: transparent;
   transition: all 0.2s ease;
 }
 
 .btn-ver:hover {
-  background-color: #5865f2;
+  background-color: #7adeffc0 !important;
   color: #fff;
 }
 
