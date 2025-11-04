@@ -1,0 +1,72 @@
+.recibo-detalle-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  color: #fff;
+}
+/***header***/
+
+.recibo-detalle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.recibo-detalle-fecha {
+  opacity: 0.8;
+}
+
+/**cards**/
+
+.recibo-detalle-card {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.recibo-detalle-card h4 {
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #7adeff;
+}
+
+.detalle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 20px;
+}
+
+/***tabla-concepto-mediosdepagos**/
+.tabla-detalle{
+    border-color: #aeb0b9 !important;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabla-detalle th, .tabla-detalle td {
+  color: #2c2f44;
+  background-color: #d8d9e4;
+}
+
+/**subtotal-card**/
+.subtotal-row {
+  background-color: rgba(0,0,0,0.2);
+  font-weight: bold;
+}
+
+.recibo-total {
+  background: rgba(0,255,180,0.15);
+  border: 1px solid rgba(0,255,180,0.3);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+/**botones**/
+.recibo-detalle-actions {
+  display: flex;
+  gap: 10px;
+}
