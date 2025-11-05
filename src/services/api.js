@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL_BASE_API = process.env.REACT_APP_API_URL; //cambiar a url de Render después process.env.REACT_APP_API_URL; / 'http://localhost:8080';
+const URL_BASE_API = process.env.REACT_APP_API_URL;; //cambiar a url de Render después process.env.REACT_APP_API_URL; / 'http://localhost:8080';
 
 const api = axios.create({
   baseURL: URL_BASE_API,
@@ -23,12 +23,12 @@ export const actualizarCliente = (id, datos) => api.put(`/clientes/${id}/modific
 export const desactivarCliente = (id) => api.put(`/clientes/${id}/desactivar`);
 export const activarCliente = (id) => api.put(`/clientes/${id}/activar`);
 
-export const obtenerPropiedades = () => api.get('/propiedades/listar');
-export const obtenerPropiedadPorId = (id) => api.get(`/propiedades/${id}`);
-export const crearPropiedad = (datos) => api.post('/propiedades/crear', datos);
-export const actualizarPropiedad = (id, datos) => api.put(`/propiedades/${id}/modificar`, datos);
-export const desactivarPropiedad = (id) => api.put(`/propiedades/${id}/desactivar`);
-export const activarPropiedad = (id) => api.put(`/propiedades/${id}/activar`);
+export const obtenerContratos = () => api.get('/contratos/listar');
+export const obtenerContratoPorId = (id) => api.get(`/contratos/${id}`);
+export const crearContrato = (datos) => api.post('/contratos/crear', datos);
+export const actualizarContrato = (id, datos) => api.put(`/contratos/${id}/modificar`, datos);
+export const desactivarContrato = (id) => api.put(`/contratos/${id}/desactivar`);
+export const activarContrato = (id) => api.put(`/contratos/${id}/activar`);
 
 export const obtenerRecibos = () => api.get('/recibo/listar');
 export const obtenerRecibo = (numeroRecibo) => api.get(`/recibo/${numeroRecibo}`);
@@ -36,4 +36,4 @@ export const crearRecibo = (datos) => api.post('/recibo/crear', datos);
 export const eliminarRecibo = (id) => api.delete(`/recibo/${id}`);
 
 export const obtenerExClientes = () => api.get('/clientes/inactivos');
-export const obtenerExPropiedades = () => api.get('/propiedades/inactivas');
+export const obtenerExContratos = () => api.get('/contratos/inactivos');

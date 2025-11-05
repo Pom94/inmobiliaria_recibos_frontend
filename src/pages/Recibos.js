@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Form, Modal, Row, Col, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { obtenerRecibos, obtenerRecibo, crearRecibo, eliminarRecibo, obtenerClientes, obtenerPropiedades } from '../services/api';
+import { obtenerRecibos, obtenerRecibo, crearRecibo, eliminarRecibo, obtenerClientes, obtenerContratos } from '../services/api';
 import './styles/Recibos.css';
 
 const Recibos = () => {
@@ -9,11 +9,11 @@ const Recibos = () => {
   const [recibosFiltrados, setRecibosFiltrados] = useState([]);
   const [busqueda, setBusqueda] = useState('');
   const [clientes, setClientes] = useState([]);
-  const [propiedades, setPropiedades] = useState([]);
+  const [contratos, setContratos] = useState([]);
   const [mostrarModal, setMostrarModal] = useState(false);
   const [datosFormulario, setDatosFormulario] = useState({
     clienteId: '',
-    propiedadId: '',
+    contratoId: '',
     conceptos: [{ concepto: '', periodo: '', anio: '', importe: '' }],
     mediosPagos: [{ medioPago: '', importePago: '' }],
     pesos: ''
@@ -31,7 +31,7 @@ const Recibos = () => {
   useEffect(() => {
     cargarRecibos();
     cargarClientes();
-    cargarPropiedades();
+    cargarContratos();
   }, []);
 
   const cargarRecibos = async () => {
@@ -53,12 +53,12 @@ const Recibos = () => {
     }
   };
 
-  const cargarPropiedades = async () => {
+  const cargarContratos = async () => {
     try {
-      const respuesta = await obtenerPropiedades();
-      setPropiedades(respuesta.data);
+      const respuesta = await obtenerContratos();
+      setContratos(respuesta.data);
     } catch (err) {
-      console.error('Error al cargar propiedades', err);
+      console.error('Error al cargar contratos', err);
     }
   };
 
@@ -125,7 +125,7 @@ const Recibos = () => {
     try {
       await crearRecibo({
         clienteId: parseInt(datosFormulario.clienteId),
-        propiedadId: parseInt(datosFormulario.propiedadId),
+        contratoId: parseInt(datosFormulario.contratoId),
         conceptos: datosFormulario.conceptos.map(c => ({
           ...c,
           importe: parseFloat(c.importe) || 0
@@ -140,7 +140,7 @@ const Recibos = () => {
       setMostrarModal(false);
       setDatosFormulario({
         clienteId: '',
-        propiedadId: '',
+        contratoId: '',
         conceptos: [{ concepto: '', periodo: '', anio: '', importe: '' }],
         mediosPagos: [{ medioPago: '', importePago: '' }],
         pesos: ''
@@ -158,7 +158,7 @@ const Recibos = () => {
     setMostrarModal(false);
     setDatosFormulario({
         clienteId: '',
-        propiedadId: '',
+        contratoId: '',
         conceptos: [{ concepto: '', periodo: '', anio: '', importe: '' }],
         mediosPagos: [{ medioPago: '', importePago: '' }],
         pesos: ''
@@ -209,8 +209,8 @@ const Recibos = () => {
                   </td>
                   <td>
                     {(() => {
-                      const propiedad = propiedades.find((p) => p.id === recibo.propiedadId);
-                      return propiedad ? `${propiedad.direccionPropiedad} - ${propiedad.localidadPropiedad}` : '—';
+                      const contrato = contratos.find((p) => p.id === recibo.contratoId);
+                      return contrato ? `${contrato.direccionPropiedad} - ${contrato.localidadPropiedad}` : '—';
                     })()}
                   </td>
                   <td>
@@ -252,10 +252,10 @@ const Recibos = () => {
               <Col>
                 <Form.Group>
                   <Form.Label>Propiedad:</Form.Label>
-                  <Form.Control as="select" name="propiedadId" value={datosFormulario.propiedadId} onChange={manejoCambio} required>
+                  <Form.Control as="select" name="contratoId" value={datosFormulario.contratoId} onChange={manejoCambio} required>
                     <option value="">Seleccionar</option>
-                    {propiedades.map((propiedad) => (
-                      <option key={propiedad.id} value={propiedad.id}>{[propiedad.direccionPropiedad, ', ', propiedad.localidadPropiedad]}</option>
+                    {contratos.map((contrato) => (
+                      <option key={contrato.id} value={contrato.id}>{[contrato.direccionPropiedad, ', ', contrato.localidadPropiedad]}</option>
                     ))}
                   </Form.Control>
                 </Form.Group>

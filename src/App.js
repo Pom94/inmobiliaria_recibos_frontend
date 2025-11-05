@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, useLocation, Link } from 'react-router-dom';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import IniciarSesion from './components/IniciarSesion';
 import Clientes from './pages/Clientes';
-import Propiedades from './pages/Propiedades';
+import Contratos from './pages/Contratos';
 import Recibos from './pages/Recibos';
 import ExClientes from './pages/ExClientes';
-import ExPropiedades from './pages/ExPropiedades';
+import ExContratos from './pages/ExContratos';
 import ClienteDetalle from './pages/ClienteDetalle';
-import PropiedadDetalle from './pages/PropiedadDetalle';
+import ContratoDetalle from './pages/ContratoDetalle';
 import ReciboDetalle from './pages/ReciboDetalle';
 import Registrar from './components/Registrar';
 //import './App.css';
@@ -38,8 +38,8 @@ const App = () => {
           <ul>
             <li><Link to="/clientes">Clientes</Link></li>
             <li><Link to="/clientes/inactivos">Clientes Inactivos</Link></li>
-            <li><Link to="/propiedades">Propiedades</Link></li>
-            <li><Link to="/propiedades/inactivas">Propiedades Inactivas</Link></li>
+            <li><Link to="/contratos">Contratos</Link></li>
+            <li><Link to="/contratos/inactivos">Contratos Inactivos</Link></li>
             <li><Link to="/recibos">Recibos</Link></li>
             <li><Link onClick={cerrarSesion}>Cerrar Sesión</Link></li>
           </ul>
@@ -79,12 +79,12 @@ const App = () => {
           element={token ? <ClienteDetalle /> : <Navigate to="/iniciar-sesion" />} 
         />
         <Route 
-          path="/propiedades" 
-          element={token ? <Propiedades /> : <Navigate to="/iniciar-sesion" />} 
+          path="/contratos" 
+          element={token ? <Contratos /> : <Navigate to="/iniciar-sesion" />} 
         />
         <Route 
-          path="/propiedades/detalle/:id" 
-          element={token ? <PropiedadDetalle /> : <Navigate to="/iniciar-sesion" />} 
+          path="/contratos/detalle/:id" 
+          element={token ? <ContratoDetalle /> : <Navigate to="/iniciar-sesion" />} 
         />
         <Route 
           path="/recibos" 
@@ -99,8 +99,8 @@ const App = () => {
           element={token ? <ExClientes /> : <Navigate to="/iniciar-sesion" />} 
         />
         <Route 
-          path="/propiedades/inactivas" 
-          element={token ? <ExPropiedades /> : <Navigate to="/iniciar-sesion" />} 
+          path="/contratos/inactivos" 
+          element={token ? <ExContratos /> : <Navigate to="/iniciar-sesion" />} 
         />
         <Route 
           path="/registrar"

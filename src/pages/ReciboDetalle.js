@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button, Table } from 'react-bootstrap';
-import { obtenerRecibo, obtenerRecibos, crearRecibo, eliminarRecibo, obtenerClientes, obtenerPropiedades} from '../services/api';
+import { obtenerRecibo, obtenerRecibos, crearRecibo, eliminarRecibo, obtenerClientes, obtenerContratos} from '../services/api';
 import './styles/ReciboDetalle.css';
 
 const ReciboDetalle = () => {
@@ -11,7 +11,7 @@ const ReciboDetalle = () => {
   const [recibo, setRecibo] = useState(null);
   const [error, setError] = useState('');
   const [clientes, setClientes] = useState([]);
-  const [propiedades, setPropiedades] = useState([]);
+  const [contratos, setContratos] = useState([]);
 
   useEffect(() => {
     cargarRecibo();
@@ -19,7 +19,7 @@ const ReciboDetalle = () => {
 
   useEffect(() => {
     cargarClientes();
-    cargarPropiedades();
+    cargarContratos();
   }, []);
 
   const cargarRecibo = async () =>{
@@ -41,12 +41,12 @@ const ReciboDetalle = () => {
       }
     };
   
-    const cargarPropiedades = async () => {
+    const cargarContratos = async () => {
       try {
-        const respuesta = await obtenerPropiedades();
-        setPropiedades(respuesta.data);
+        const respuesta = await obtenerContratos();
+        setContratos(respuesta.data);
       } catch (err) {
-        console.error('Error al cargar propiedades', err);
+        console.error('Error al cargar contratos', err);
       }
     };
 
@@ -97,15 +97,15 @@ const ReciboDetalle = () => {
 
       {/*propiedad*/}
       <section className="recibo-detalle-card">
-        <h4>Propiedad</h4>
+        <h4>Contrato</h4>
         <div className="detalle-grid">
-          <p><strong>Contrato Nº:</strong> {propiedades.find(p => p.id === recibo.propiedadId)?.numContrato}</p>
-          <p><strong>Inicio:</strong> {formatearFecha(propiedades.find(p => p.id === recibo.propiedadId)?.inicioContrato)}</p>
-          <p><strong>Fin:</strong> {formatearFecha(propiedades.find(p => p.id === recibo.propiedadId)?.finContrato)}</p>
-          <p><strong>Dirección:</strong> {propiedades.find(p => p.id === recibo.propiedadId)?.direccionPropiedad}</p>
-          <p><strong>Localidad:</strong> {propiedades.find(p => p.id === recibo.propiedadId)?.localidadPropiedad}</p>
-          <p><strong>Propietario:</strong> {propiedades.find(p => p.id === recibo.propiedadId)?.nombrePropietario}</p>
-          <p><strong>C.U.I.T Propietario:</strong> {propiedades.find(p => p.id === recibo.propiedadId)?.cuitPropietario}</p>
+          <p><strong>Contrato Nº:</strong> {contratos.find(p => p.id === recibo.contratoId)?.numContrato}</p>
+          <p><strong>Inicio:</strong> {formatearFecha(contratos.find(p => p.id === recibo.contratoId)?.inicioContrato)}</p>
+          <p><strong>Fin:</strong> {formatearFecha(contratos.find(p => p.id === recibo.contratoId)?.finContrato)}</p>
+          <p><strong>Dirección:</strong> {contratos.find(p => p.id === recibo.contratoId)?.direccionPropiedad}</p>
+          <p><strong>Localidad:</strong> {contratos.find(p => p.id === recibo.contratoId)?.localidadPropiedad}</p>
+          <p><strong>Propietario:</strong> {contratos.find(p => p.id === recibo.contratoId)?.nombrePropietario}</p>
+          <p><strong>C.U.I.T Propietario:</strong> {contratos.find(p => p.id === recibo.contratoId)?.cuitPropietario}</p>
         </div>
       </section>
 

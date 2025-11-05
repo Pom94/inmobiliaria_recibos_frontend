@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Form, Modal, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { obtenerPropiedades, crearPropiedad, actualizarPropiedad, desactivarPropiedad } from '../services/api';
-import './styles/Propiedades.css';
+import { obtenerContratos, crearContrato, actualizarContrato, desactivarContrato } from '../services/api';
+import './styles/Contratos.css';
 
-const Propiedades = () => {
-  const [propiedades, setPropiedades] = useState([]);
-  const [propiedadesFiltradas, setPropiedadesFiltradas] = useState([]);
+const Contratos = () => {
+  const [contratos, setContratos] = useState([]);
+  const [contratosFiltrados, setContratosFiltrados] = useState([]);
   const [busqueda, setBusqueda] = useState('');
   const [mostrarModal, setMostrarModal] = useState(false);
   const [datosFormulario, setDatosFormulario] = useState({
@@ -21,26 +21,26 @@ const Propiedades = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    cargarPropiedades();
+    cargarContratos();
   }, []);
 
-  const cargarPropiedades = async () => {
+  const cargarContratos = async () => {
     try {
-      const respuesta = await obtenerPropiedades();
-      setPropiedades(respuesta.data);
-      setPropiedadesFiltradas(respuesta.data);
+      const respuesta = await obtenerContratos();
+      setContratos(respuesta.data);
+      setContratosFiltrados(respuesta.data);
     } catch (err) {
-      console.error('Error al cargar propiedades', err);
+      console.error('Error al cargar contratos', err);
     }
   };
 
   const manejoBusqueda = (e) => {
     const termino = e.target.value.toLowerCase();
     setBusqueda(termino);
-    const filtradas = propiedades.filter(propiedad => 
-      propiedad.direccionPropiedad.toLowerCase().includes(termino) || propiedad.localidadPropiedad.toLowerCase().includes(termino)
+    const filtrados = contratos.filter(contrato => 
+      contrato.direccionPropiedad.toLowerCase().includes(termino) || contrato.localidadPropiedad.toLowerCase().includes(termino)
     );
-    setPropiedadesFiltradas(filtradas);
+    setContratosFiltrados(filtrados);
   };
 
   const manejoCambio = (e) => {
@@ -50,8 +50,8 @@ const Propiedades = () => {
   const manejoEnvio = async (e) => {
     e.preventDefault();
     try {
-      await crearPropiedad(datosFormulario);
-      cargarPropiedades();
+      await crearContrato(datosFormulario);
+      cargarContratos();
       setMostrarModal(false);
       setDatosFormulario({
         numContrato: '',
@@ -63,13 +63,13 @@ const Propiedades = () => {
         cuitPropietario: ''
       });
     } catch (err) {
-      console.error('Error al guardar propiedad', err);
+      console.error('Error al guardar contrato', err);
     }
   };
 
 
   const manejoVerDetalles = (id) => {
-    navigate(`/propiedades/detalle/${id}`);
+    navigate(`/contratos/detalle/${id}`);
   };
 
   const cerrarModal = () => {
@@ -87,19 +87,19 @@ const Propiedades = () => {
 
   return (
     <div className="contenedor-principal">
-      <div className="propiedades-container">
-        <div className="propiedades-header">
-          <h2 className="propiedades-title">Propiedades</h2>
+      <div className="contratos-container">
+        <div className="contratos-header">
+          <h2 className="contratos-title">Contratos</h2>
           <Button
             variant="primary"
             onClick={() => setMostrarModal(true)}
-            className="boton-nueva-propiedad"
+            className="boton-nueva-contrato"
           >
-            Nueva Propiedad
+            Nuevo Contrato
           </Button>
         </div>
 
-        <InputGroup className="propiedades-buscar">
+        <InputGroup className="contratos-buscar">
           <Form.Control
             placeholder="Buscar por dirección o localidad"
             value={busqueda}
@@ -107,8 +107,8 @@ const Propiedades = () => {
           />
         </InputGroup>
 
-        <div className="propiedades-tabla-container">
-          <Table  className='mb-0 propiedades-tabla'>
+        <div className="contratos-tabla-container">
+          <Table  className='mb-0 contratos-tabla'>
             <thead>
               <tr>
                 <th>ID</th>
@@ -119,17 +119,17 @@ const Propiedades = () => {
               </tr>
             </thead>
             <tbody>
-              {propiedadesFiltradas.map((propiedad) => (
-                <tr key={propiedad.id}>
-                  <td>{propiedad.id}</td>
-                  <td>{propiedad.numContrato}</td>
-                  <td>{propiedad.direccionPropiedad}</td>
-                  <td>{propiedad.localidadPropiedad}</td>
+              {contratosFiltrados.map((contrato) => (
+                <tr key={contrato.id}>
+                  <td>{contrato.id}</td>
+                  <td>{contrato.numContrato}</td>
+                  <td>{contrato.direccionPropiedad}</td>
+                  <td>{contrato.localidadPropiedad}</td>
                   <td className='text-center'>
                     <Button 
                       variant="outline-light"
                       size='sm' 
-                      onClick={() => manejoVerDetalles(propiedad.id)}
+                      onClick={() => manejoVerDetalles(contrato.id)}
                       className='btn-ver'
                     >
                       Ver
@@ -144,10 +144,10 @@ const Propiedades = () => {
       
 
       <Modal show={mostrarModal} onHide={cerrarModal} centered>
-        <Modal.Header closeButton className='modal-propiedades-header'>
-          <Modal.Title>Agregar Propiedad</Modal.Title>
+        <Modal.Header closeButton className='modal-contratos-header'>
+          <Modal.Title>Agregar Contrato</Modal.Title>
         </Modal.Header>
-        <Modal.Body className='modal-propiedades-body'>
+        <Modal.Body className='modal-contratos-body'>
           <Form onSubmit={manejoEnvio}>
             <Form.Group>
               <Form.Label>Número de Contrato:</Form.Label>
@@ -185,4 +185,4 @@ const Propiedades = () => {
   );
 };
 
-export default Propiedades;
+export default Contratos;
