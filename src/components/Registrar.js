@@ -25,7 +25,7 @@ const Registrar = ({ establecerToken }) => {
       setExito('');
 
       const respuesta = await axios.post(
-        'http://localhost:8080/auth/registrar',
+        'https://inmobiliaria-recibos-backend.onrender.com/auth/registrar', //'http://localhost:8080/auth/registrar' / 'https://inmobiliaria-recibos-backend.onrender.com/auth/registrar'
         { username: usuario, password: contrasenia },
         { headers: { 'Content-Type': 'application/json' } }
       );

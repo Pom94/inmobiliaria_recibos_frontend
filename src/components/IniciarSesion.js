@@ -11,9 +11,9 @@ const IniciarSesion = ({ establecerToken }) => {
   const manejoEnvio = async (e) => {
     e.preventDefault();
     try {
-      console.log('Enviando solicitud a:', 'http://localhost:8080/auth/iniciar-sesion');
+      //'http://localhost:8080/auth/iniciar-sesion' / 'https://inmobiliaria-recibos-backend.onrender.com/auth/iniciar-sesion'
       console.log('Datos enviados:', { username: usuario, password: contrasenia });
-      const respuesta = await axios.post('http://localhost:8080/auth/iniciar-sesion', { username: usuario, password: contrasenia }, {
+      const respuesta = await axios.post('https://inmobiliaria-recibos-backend.onrender.com/auth/iniciar-sesion', { username: usuario, password: contrasenia }, {
         headers: { 'Content-Type': 'application/json' }
       });
       const token = respuesta.data.token;
