@@ -83,7 +83,7 @@ const ReciboDetalle = () => {
         <span className="recibo-detalle-fecha">{formatearFecha(recibo.fechaRecibo)}</span>
       </div>
 
-      {/* Cliente */}
+      {/*cliente*/}
       <section className="recibo-detalle-card">
         <h4>Cliente</h4>
         <div className="detalle-grid">
@@ -95,7 +95,7 @@ const ReciboDetalle = () => {
         </div>
       </section>
 
-      {/* Propiedad */}
+      {/*propiedad*/}
       <section className="recibo-detalle-card">
         <h4>Propiedad</h4>
         <div className="detalle-grid">
@@ -109,7 +109,7 @@ const ReciboDetalle = () => {
         </div>
       </section>
 
-      {/* Conceptos */}
+      {/*conceptos*/}
       <section className="recibo-detalle-card">
         <h4>Conceptos</h4>
         <Table bordered className="tabla-detalle">
@@ -139,7 +139,7 @@ const ReciboDetalle = () => {
         </Table>
       </section>
 
-      {/* Medios de pago */}
+      {/*medios de pago*/}
       <section className="recibo-detalle-card">
         <h4>Medios de Pago</h4>
         <Table bordered className="tabla-detalle">
@@ -160,13 +160,13 @@ const ReciboDetalle = () => {
         </Table>
       </section>
 
-      {/* Total */}
+      {/*total*/}
       <div className="recibo-total">
         <h4>Total: ${recibo.total}</h4>
         <p><strong>Son pesos:</strong> {recibo.pesos}</p>
       </div>
 
-      {/* Botones */}
+      {/*botones**/}
       <div className="recibo-detalle-actions">
         <Button variant="danger" onClick={manejoEliminar}>Eliminar</Button>
         <Button variant="secondary" onClick={() => navigate('/recibos')}>Volver</Button>

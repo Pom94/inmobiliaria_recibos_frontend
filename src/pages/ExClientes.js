@@ -56,6 +56,7 @@ const ExClientes = () => {
           <Table borderless className="mb-0 clientes-tabla">
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Nombre</th>
                 <th>CUIT</th>
                 <th></th>
@@ -64,12 +65,9 @@ const ExClientes = () => {
             <tbody>
               {exClientesFiltrados.map((exCliente) => (
                 <tr key={exCliente.id}>
-                  <td onClick={() => manejoVerDetalles(exCliente.id)} style={{ cursor: 'pointer' }}>
-                    {exCliente.nombre}
-                  </td>
-                  <td onClick={() => manejoVerDetalles(exCliente.id)} style={{ cursor: 'pointer' }}>
-                    {exCliente.cuit}
-                  </td>
+                  <td>{exCliente.id}</td>
+                  <td>{exCliente.nombre}</td>
+                  <td>{exCliente.cuit}</td>
                   <td className="text-center">
                     <Button
                       variant="outline-light"

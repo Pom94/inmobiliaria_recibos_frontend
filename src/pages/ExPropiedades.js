@@ -60,7 +60,7 @@ const ExPropiedades = () => {
                 <th>Nº Contrato</th>
                 <th>Dirección</th>
                 <th>Localidad</th>
-                <th>Acciones</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>

@@ -111,6 +111,7 @@ const Propiedades = () => {
           <Table  className='mb-0 propiedades-tabla'>
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Nº Contrato</th>
                 <th>Dirección</th>
                 <th>Localidad</th>
@@ -120,6 +121,7 @@ const Propiedades = () => {
             <tbody>
               {propiedadesFiltradas.map((propiedad) => (
                 <tr key={propiedad.id}>
+                  <td>{propiedad.id}</td>
                   <td>{propiedad.numContrato}</td>
                   <td>{propiedad.direccionPropiedad}</td>
                   <td>{propiedad.localidadPropiedad}</td>
