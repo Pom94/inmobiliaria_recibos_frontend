@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL_BASE_API = 'http://localhost:8080'; //cambiar a url de Render después
+const URL_BASE_API = process.env.REACT_APP_API_URL; //cambiar a url de Render después process.env.REACT_APP_API_URL; / 'http://localhost:8080';
 
 const api = axios.create({
   baseURL: URL_BASE_API,

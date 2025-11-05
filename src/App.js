@@ -10,6 +10,7 @@ import ExPropiedades from './pages/ExPropiedades';
 import ClienteDetalle from './pages/ClienteDetalle';
 import PropiedadDetalle from './pages/PropiedadDetalle';
 import ReciboDetalle from './pages/ReciboDetalle';
+import Registrar from './components/Registrar';
 //import './App.css';
 
 const App = () => {
@@ -100,6 +101,10 @@ const App = () => {
         <Route 
           path="/propiedades/inactivas" 
           element={token ? <ExPropiedades /> : <Navigate to="/iniciar-sesion" />} 
+        />
+        <Route 
+          path="/registrar"
+          element={!token ? <Registrar establecerToken={setToken} /> : <Navigate to="/" />}
         />
       </Routes>
     </Router>

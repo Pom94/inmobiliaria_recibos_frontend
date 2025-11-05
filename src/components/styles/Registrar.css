@@ -1,0 +1,30 @@
+.registrar-container {
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: #1b1e2b;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+
+  
+}
+
+/**card**/
+.registrar-card {
+  background-color: #23263a;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  max-height: 500px;
+  max-width: 600px;
+  width: 500px;
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 25px;
+  
+}
+
+
+/***botones***/
+.botones-registrar-container .btn{
+    margin: 5px;
+}
