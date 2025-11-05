@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { obtenerClientePorId, actualizarCliente, desactivarCliente, activarCliente } from '../services/api';
+import './styles/ClienteDetalle.css';
 
 const ClienteDetalle = () => {
   const { id } = useParams();
@@ -74,71 +75,61 @@ const ClienteDetalle = () => {
   if (!cliente) return <Container><p>Cargando...</p></Container>;
 
   return (
-    <Container className="mt-4">
-      <h2>Detalles del Cliente</h2>
-      {editando ? (
-        <Form onSubmit={(e) => { e.preventDefault(); manejoGuardar(); }}>
-          <Form.Group>
-            <Form.Label>Nombre</Form.Label>
-            <Form.Control name="nombre" value={datosFormulario.nombre} onChange={manejoCambio} required />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Dirección</Form.Label>
-            <Form.Control name="direccion" value={datosFormulario.direccion} onChange={manejoCambio} required />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>IVA</Form.Label>
-            <Form.Control name="iva" value={datosFormulario.iva} onChange={manejoCambio} required />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>CUIT</Form.Label>
-            <Form.Control name="cuit" value={datosFormulario.cuit} onChange={manejoCambio} required />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Localidad</Form.Label>
-            <Form.Control name="localidad" value={datosFormulario.localidad} onChange={manejoCambio} required />
-          </Form.Group>
-          <Button variant="primary" onClick={manejoGuardar}>Guardar</Button>{' '}
-          <Button variant="secondary" onClick={() => setEditando(false)}>Cancelar</Button>
-        </Form>
+    <div className="cliente-detalle-container">
+      <div className="cliente-detalle-card">
+
+        <h2 className="cliente-detalle-title">Detalles del Cliente</h2>
+
+        {editando ? (
+          <Form onSubmit={(e) => { e.preventDefault(); manejoGuardar(); }}>
+            <Form.Group>
+              <Form.Label className="cliente-detalle-label">Nombre</Form.Label>
+              <Form.Control className="cliente-detalle-input" name="nombre" value={datosFormulario.nombre} onChange={manejoCambio} required />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label className="cliente-detalle-label">Dirección</Form.Label>
+              <Form.Control className="cliente-detalle-input" name="direccion" value={datosFormulario.direccion} onChange={manejoCambio} required />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label className="cliente-detalle-label">Localidad</Form.Label>
+              <Form.Control className="cliente-detalle-input" name="localidad" value={datosFormulario.localidad} onChange={manejoCambio} required />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label className="cliente-detalle-label">IVA</Form.Label>
+              <Form.Control className="cliente-detalle-input" name="iva" value={datosFormulario.iva} onChange={manejoCambio} required />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label className="cliente-detalle-label">CUIT</Form.Label>
+              <Form.Control className="cliente-detalle-input" name="cuit" value={datosFormulario.cuit} onChange={manejoCambio} required />
+            </Form.Group>
+            <Button variant="primary" onClick={manejoGuardar}>Guardar</Button>{' '}
+            <Button variant="secondary" onClick={() => setEditando(false)}>Cancelar</Button>
+          </Form>
+        ) : (
+          <>
+            <div className="cliente-detalle-info">
+              <p><strong>ID:</strong> {cliente.id}</p>
+              <p><strong>Nombre:</strong> {cliente.nombre}</p>
+              <p><strong>Dirección:</strong> {cliente.direccion}</p>
+              <p><strong>Localidad:</strong> {cliente.localidad}</p>
+              <p><strong>IVA:</strong> {cliente.iva}</p>
+              <p><strong>CUIT:</strong> {cliente.cuit}</p>
+              <p><strong>Activo:</strong> {cliente.activo ? 'Sí' : 'No'}</p>
+            </div>
+          </>
+        )}
+      </div>
+      <Button className="btn-editar" onClick={() => setEditando(true)}>Editar</Button>
+      {cliente.activo ? (
+        <Button variant="danger" className="btn-desactivar" onClick={manejoDesactivar}>Desactivar</Button>
       ) : (
-        <>
-          <Row>
-            <Col><strong>ID:</strong> {cliente.id}</Col>
-          </Row>
-          <Row>
-            <Col><strong>Nombre:</strong> {cliente.nombre}</Col>
-          </Row>
-          <Row>
-            <Col><strong>Dirección:</strong> {cliente.direccion}</Col>
-          </Row>
-          <Row>
-            <Col><strong>IVA:</strong> {cliente.iva}</Col>
-          </Row>
-          <Row>
-            <Col><strong>CUIT:</strong> {cliente.cuit}</Col>
-          </Row>
-          <Row>
-            <Col><strong>Localidad:</strong> {cliente.localidad}</Col>
-          </Row>
-          <Row>
-            <Col><strong>Activo:</strong> {cliente.activo ? 'Sí' : 'No'}</Col>
-          </Row>
-          <Button variant="info" onClick={() => setEditando(true)} className="mt-3">Editar</Button>{' '}
-          {cliente.activo ? (
-            <Button variant="danger" onClick={manejoDesactivar} className="mt-3">Desactivar</Button>
-          ) : (
-            <Button variant="success" onClick={manejoActivar} className="mt-3">Activar</Button>
-          )}{' '}
-          {cliente.activo ? (
-            <Button variant="secondary" onClick={() => navigate('/clientes')} className="mt-3">Volver</Button>
-          ) : (
-            <Button variant="secondary" onClick={() => navigate('/clientes/inactivos')} className="mt-3">Volver</Button>
-          )}
-          {/*<Button variant="secondary" onClick={() => navigate('/clientes')} className="mt-3">Volver</Button>*/}
-        </>
+        <Button variant="success" className="btn-activar" onClick={manejoActivar}>Activar</Button>
       )}
-    </Container>
+
+      <Button className="btn-volver" onClick={() => navigate(cliente.activo ? '/clientes' : '/clientes/inactivos')}>
+        Volver
+      </Button>
+    </div>
   );
 };
 
