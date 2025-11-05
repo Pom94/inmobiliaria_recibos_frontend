@@ -37,44 +37,7 @@ body {
   color: #f1f3ff;
   font-family: 'Inter', sans-serif;
 }
-/*
-.container {
-  background-color: #23263a;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-}
 
-h2 {
-  color: #f1f3ff;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-}
-
-
-.table {
-  background-color: #2d3148;
-  color: #cfd3e3;
-  border: none;
-}
-
-.table th {
-  background-color: #303550;
-  color: #aab2d6;
-  border: none;
-}
-
-.table td {
-  background-color: #303550;
-  color: #ffffff;
-  border: none;
-}
-
-.table-hover tbody tr:hover {
-  background-color: #383d5e;
-}
-
-*/
 
 /**botones**/
 .btn-primary {
@@ -125,4 +88,11 @@ input:focus::placeholder {
   color: #f1f3ff;
   border-radius: 10px;
   border: none;
+}
+
+/**dashboard**/
+.dashboard-inmobiliaria{
+  margin-left: 240px;
+  padding: 2rem;
+
 }
