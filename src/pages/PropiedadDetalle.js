@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { obtenerPropiedadPorId, actualizarPropiedad, desactivarPropiedad, activarPropiedad } from '../services/api';
+import '../pages/styles/PropiedadDetalle.css'
 
 const PropiedadDetalle = () => {
   const { id } = useParams();
@@ -86,91 +87,71 @@ const PropiedadDetalle = () => {
   if (!propiedad) return <Container><p>Cargando...</p></Container>;
 
   return (
-      <Container className="mt-4">
-        <h2>Detalles de la Propiedad</h2>
+    <div className="propiedad-detalle-container">
+      <div className="propiedad-detalle-card">
+
+        <h2 className="propiedad-detalle-title">Detalles de la Propiedad</h2>
+
         {editando ? (
           <Form onSubmit={(e) => { e.preventDefault(); manejoGuardar(); }}>
             <Form.Group>
-              <Form.Label>Nº de Contrato</Form.Label>
-              <Form.Control name="numContrato" value={datosFormulario.numContrato} onChange={manejoCambio} required />
+              <Form.Label className="propiedad-detalle-label">Nº de Contrato</Form.Label>
+              <Form.Control className="propiedad-detalle-input" name="numContrato" value={datosFormulario.numContrato} onChange={manejoCambio} required />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Dirección de la Propiedad</Form.Label>
-              <Form.Control name="direccionPropiedad" value={datosFormulario.direccionPropiedad} onChange={manejoCambio} required />
+              <Form.Label className="propiedad-detalle-label">Dirección de la Propiedad</Form.Label>
+              <Form.Control className="propiedad-detalle-input" name="direccionPropiedad" value={datosFormulario.direccionPropiedad} onChange={manejoCambio} required />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Localidad de la Propiedad</Form.Label>
-              <Form.Control name="localidadPropiedad" value={datosFormulario.localidadPropiedad} onChange={manejoCambio} required />
+              <Form.Label className="propiedad-detalle-label">Localidad de la Propiedad</Form.Label>
+              <Form.Control className="propiedad-detalle-input" name="localidadPropiedad" value={datosFormulario.localidadPropiedad} onChange={manejoCambio} required />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Nombre del Propietario</Form.Label>
-              <Form.Control name="nombrePropietario" value={datosFormulario.nombrePropietario} onChange={manejoCambio} required />
+              <Form.Label className="propiedad-detalle-label">Nombre del Propietario</Form.Label>
+              <Form.Control className="propiedad-detalle-input" name="nombrePropietario" value={datosFormulario.nombrePropietario} onChange={manejoCambio} required />
             </Form.Group>
             <Form.Group>
-              <Form.Label>CUIT del Propietario</Form.Label>
-              <Form.Control name="cuitPropiedad" value={datosFormulario.cuitPropietario} onChange={manejoCambio} required />
+              <Form.Label className="propiedad-detalle-label">CUIT del Propietario</Form.Label>
+              <Form.Control className="propiedad-detalle-input" name="cuitPropiedad" value={datosFormulario.cuitPropietario} onChange={manejoCambio} required />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Inicio de Contrato</Form.Label>
-              <Form.Control type="date" name="inicioContrato" value={datosFormulario.inicioContrato} onChange={manejoCambio} required />
+              <Form.Label className="propiedad-detalle-label">Inicio de Contrato</Form.Label>
+              <Form.Control className="propiedad-detalle-input" type="date" name="inicioContrato" value={datosFormulario.inicioContrato} onChange={manejoCambio} required />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Fin de Contrato</Form.Label>
-              <Form.Control type="date" name="finContrato" value={datosFormulario.finContrato} onChange={manejoCambio} required />
+              <Form.Label className="propiedad-detalle-label">Fin de Contrato</Form.Label>
+              <Form.Control className="propiedad-detalle-input" type="date" name="finContrato" value={datosFormulario.finContrato} onChange={manejoCambio} required />
             </Form.Group>
             <Button variant="primary" onClick={manejoGuardar}>Guardar</Button>{' '}
             <Button variant="secondary" onClick={() => setEditando(false)}>Cancelar</Button>
           </Form>
         ) : (
-            /*numContrato: respuesta.data.numContrato,
-          inicioContrato: respuesta.data.inicioContrato,
-          finContrato: respuesta.data.finContrato,
-          nombrePropietario: respuesta.data.nombrePropietario,
-          direccionPropiedad: respuesta.data.direccionPropiedad,
-          localidadPropiedad: respuesta.data.localidadPropiedad,
-          cuitPropietario: respuesta.data.cuitPropietario*/
           <>
-            <Row>
-              <Col><strong>ID:</strong> {propiedad.id}</Col>
-            </Row>
-            <Row>
-              <Col><strong>Nº de Contrato:</strong> {propiedad.numContrato}</Col>
-            </Row>
-            <Row>
-              <Col><strong>Dirección de la Propiedad:</strong> {propiedad.direccionPropiedad}</Col>
-            </Row>
-            <Row>
-              <Col><strong>Localidad de la Propiedad:</strong> {propiedad.localidadPropiedad}</Col>
-            </Row>
-            <Row>
-              <Col><strong>Nombre del Propietario:</strong> {propiedad.nombrePropietario}</Col>
-            </Row>
-            <Row>
-              <Col><strong>CUIT del Propietario:</strong> {propiedad.cuitPropietario}</Col>
-            </Row>
-            <Row>
-              <Col><strong>Inicio del Contrato:</strong> {formatearFecha(propiedad.inicioContrato)}</Col>
-            </Row>
-            <Row>
-              <Col><strong>Fin del Contrato:</strong> {formatearFecha(propiedad.finContrato)}</Col>
-            </Row>
-            <Row>
-              <Col><strong>Activo:</strong> {propiedad.activo ? 'Sí' : 'No'}</Col>
-            </Row>
-            <Button variant="info" onClick={() => setEditando(true)} className="mt-3">Editar</Button>{' '}
-            {propiedad.activo ? (
-              <Button variant="danger" onClick={manejoDesactivar} className="mt-3">Desactivar</Button>
-            ) : (
-              <Button variant="success" onClick={manejoActivar} className="mt-3">Activar</Button>
-            )}{' '}
-            {propiedad.activo ? (
-              <Button variant="secondary" onClick={() => navigate('/propiedades')} className="mt-3">Volver</Button>
-            ) : (
-              <Button variant="secondary" onClick={() => navigate('/propiedades/inactivas')} className="mt-3">Volver</Button>
-            )}
+            <div className="propiedad-detalle-info">
+              <p><strong>ID:</strong> {propiedad.id}</p>
+              <p><strong>Nº de Contrato:</strong> {propiedad.numContrato}</p>
+              <p><strong>Inicio de Contrato:</strong> {formatearFecha(propiedad.inicioContrato)}</p>
+              <p><strong>Fin de Contrato:</strong> {formatearFecha(propiedad.finContrato)}</p>
+              <p><strong>Dirección:</strong> {propiedad.direccionPropiedad}</p>
+              <p><strong>Localidad:</strong> {propiedad.localidadPropiedad}</p>
+              <p><strong>Nombre Propietario:</strong> {propiedad.nombrePropietario}</p>
+              <p><strong>CUIT Propietario:</strong> {propiedad.cuitPropietario}</p>
+              <p><strong>Activo:</strong> {propiedad.activo ? 'Sí' : 'No'}</p>
+            </div>
           </>
         )}
-      </Container>
+      </div>
+
+      <Button className="btn-editar" onClick={() => setEditando(true)}>Editar</Button>
+      {propiedad.activo ? (
+        <Button variant="danger" className="btn-desactivar" onClick={manejoDesactivar}>Desactivar</Button>
+      ) : (
+        <Button variant="success" className="btn-activar" onClick={manejoActivar}>Activar</Button>
+      )}
+      <Button className="btn-volver" onClick={() => navigate(propiedad.activo ? '/propiedades' : '/propiedades/inactivas')}>
+        Volver
+      </Button>
+    </div>
     );
 };
 
