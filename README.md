@@ -1,70 +1,115 @@
-# Getting Started with Create React App
+# Frontend de Sistema de generación de recibos para inmobiliarias
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación web desarrollada en **React** para la gestión de **clientes, contratos y recibos** de una inmobiliaria.  
+Permite realizar el **login de administrador**, la **creación y visualización de recibos PDF**, y la administración de datos desde una interfaz moderna y responsiva.
 
-## Available Scripts
+Proyecto final para **Prácticas Supervisadas (PS)** – UTN FRBB.
 
-In the project directory, you can run:
+**Autor:** Pom94 (Pamela Dominguez Fernandez)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tabla de Contenidos
+- [Descripción del Proyecto](#descripción-del-proyecto)
+- [Tecnologías Utilizadas](#tecnologías-utilizadas)
+- [Pantallas Principales](#pantallas-principales)
+- [Despliegue](#despliegue)
+- [Ejecución Local](#ejecución-local)
+- [Repositorios](#repositorios)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+### Descripción del Proyecto
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Interfaz web que debe consumir datos de una [API REST](https://github.com/Pom94/inmobiliaria_recibos_backend.git) previamente desarrollada para:
 
-### `npm run build`
+- **Iniciar sesión** de administrador (autenticación con token JWT).
+- **Registrar nuevo administrador** (solo si no existe).
+- **Gestionar clientes, contratos y recibos**.
+- **Emitir y descargar recibos PDF** con conceptos y medios de pago.
+- Visualización clara de datos mediante **tablas estilizadas** y **alertas interactivas**.
+- Diseño moderno y con tonos oscuros/azules para una experiencia profesional y elegante.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> Proyecto pensado para **inmobiliarias pequeñas** que necesitan generar y archivar recibos digitales.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Tecnologías Utilizadas
 
-### `npm run eject`
+| Tecnología | Uso |
+|-------------|-----|
+| **React 19** | Framework principal de frontend |
+| **Create React App** | Entorno de desarrollo y build |
+| **React Router DOM 7** | Navegación entre pantallas |
+| **Axios** | Llamadas HTTP a la API REST |
+| **Bootstrap 5.3** | Estilos base |
+| **React-Bootstrap 2.10** | Componentes de UI |
+| **CSS personalizado** | Estilo visual adaptado al diseño del sistema |
+| **LocalStorage** | Almacenamiento del token JWT |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Pantallas Principales
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+| Pantalla | Descripción |
+|-----------|--------------|
+| **Iniciar Sesión** | Permite autenticarse como administrador mediante token JWT |
+| **Registrar** | Crea el primer administrador si no existe |
+| **Clientes** | ABM (alta, baja, modificación) de clientes |
+| **Contratos** | ABM (alta, baja, modificación) de contratos |
+| **Recibos** | Creación, listado y visualización de recibos PDF |
+| **Detalle de Recibo** | Vista completa del recibo generado |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+> Todas las operaciones protegidas requieren estar logueado con un **token JWT** válido.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Despliegue
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+El frontend se conecta con la API desplegada en Render:
 
-### Code Splitting
+- **Backend:** [https://inmobiliaria-recibos-backend.onrender.com](https://inmobiliaria-recibos-backend.onrender.com)
+- **Frontend:** [https://inmobiliaria-recibos-frontend.onrender.com](https://inmobiliaria-recibos-frontend.onrender.com)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### Ejecución local
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### Requisitos
+- Node.js 18 o superior  
+- npm (viene incluido con Node)  
+- Git  
 
-### Making a Progressive Web App
+#### Pasos
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+git clone https://github.com/Pom94/inmobiliaria_recibos_frontend.git
+cd inmobiliaria_recibos_frontend
+npm start
+```
 
-### Advanced Configuration
+> La aplicación se ejecutará en ``http://localhost:3000``
+> Asegúrate de que el backend esté corriendo en ``http://localhost:8080``.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 📸 Capturas de Pantalla
 
-### Deployment
+A continuación se muestran algunas vistas principales de la aplicación:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### 🔐 Pantalla de Inicio de Sesión
+![Pantalla de inicio de sesión](./docs/captura-login.jpg)
 
-### `npm run build` fails to minify
+#### 👥 Gestión de Clientes
+![Gestión de clientes](./docs/captura-clientes.jpg)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### 👥 Detalle de Cliente
+![Gestión de clientes](./docs/captura-cliente-detalle.jpg)
+
+#### 🏠 Gestión de Propiedades
+![Gestión de propiedades](./docs/captura-propiedades.jpg)
+
+#### 💰 Generación de Recibos
+![Generación de recibos](./docs/captura-recibo-crear.jpg)
+
+### Repositorios
+
+- **Backend:** [github.com/Pom94/inmobiliaria_recibos_backend](https://github.com/Pom94/inmobiliaria_recibos_backend)
+- **Frontend:** [github.com/Pom94/inmobiliaria_recibos_frontend](https://github.com/Pom94/inmobiliaria_recibos_frontend)
