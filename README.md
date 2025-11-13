@@ -71,6 +71,8 @@ El frontend se conecta con la API desplegada en Render:
 - **Backend:** [https://inmobiliaria-recibos-backend.onrender.com](https://inmobiliaria-recibos-backend.onrender.com)
 - **Frontend:** [https://inmobiliaria-recibos-frontend.onrender.com](https://inmobiliaria-recibos-frontend.onrender.com)
 
+> Para registrarse, el programa aceptara como usuario "admin", ya que el programa está pensado (por ahora) para un único cliente administrador
+
 
 ### Ejecución local
 
@@ -88,7 +90,10 @@ npm start
 ```
 
 > La aplicación se ejecutará en ``http://localhost:3000``
+
 > Asegúrate de que el backend esté corriendo en ``http://localhost:8080``. Y deberá cambiar la configuración **\src\components\IniciarSesion.js** y **\src\components\Registrar.js** en la parte de **respuesta**; y en **\src\services\api.js** donde dice **URL_BASE_API** ingresar **'http://localhost:8080'** o donde esté corriendo la API a ser consumida
+
+> Para registrarse, el programa aceptara como usuario "admin", ya que el programa está pensado (por ahora) para un único cliente administrador
 
 ### 📸 Capturas de Pantalla
 
