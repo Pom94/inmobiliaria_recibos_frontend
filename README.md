@@ -88,7 +88,7 @@ npm start
 ```
 
 > La aplicación se ejecutará en ``http://localhost:3000``
-> Asegúrate de que el backend esté corriendo en ``http://localhost:8080``.
+> Asegúrate de que el backend esté corriendo en ``http://localhost:8080``. Y deberá cambiar la configuración **\src\components\IniciarSesion.js** y **\src\components\Registrar.js** en la parte de **respuesta**; y en **\src\services\api.js** donde dice **URL_BASE_API** ingresar **'http://localhost:8080'** o donde esté corriendo la API a ser consumida
 
 ### 📸 Capturas de Pantalla
 
